@@ -26,8 +26,8 @@ TaiKhoan.findall = function (result) {
 };
 
 
-TaiKhoan.getOne = function (MaTaiKhoan, result) {
-    dbConn.query("SELECT * FROM taikhoan WHERE MaTaiKhoan = ?", [MaTaiKhoan], function (err, res) {
+TaiKhoan.getOne = function (email, result) {
+    dbConn.query("SELECT * FROM taikhoan WHERE email = ?", [email], function (err, res) {
         if (err) {
             console.log("Error:", err);
             result(err, null);
@@ -38,8 +38,8 @@ TaiKhoan.getOne = function (MaTaiKhoan, result) {
     });
 };
 
-TaiKhoan.getIdBySDT = function (SoDienThoai, result) {
-    dbConn.query("SELECT * FROM taikhoan WHERE SoDienThoai = ?", [SoDienThoai], function (err, res) {
+TaiKhoan.getIdByEmail = function (email, result) {
+    dbConn.query("SELECT * FROM taikhoan WHERE email = ?", [email], function (err, res) {
         if (err) {
             console.log("Error:", err);
             result(err, null);
@@ -125,9 +125,9 @@ TaiKhoan.delete = function (MaTaiKhoan, result) { // Ensure result is a function
 
 
 
-TaiKhoan.findByUsername = function (SoDienThoai) {
+TaiKhoan.findByUsername = function (email) {
     return new Promise((resolve, reject) => {
-        dbConn.query("SELECT * FROM taikhoan WHERE SoDienThoai = ?", [SoDienThoai], function (err, res) {
+        dbConn.query("SELECT * FROM taikhoan WHERE email = ?", [email], function (err, res) {
 
             if (err) {
                 console.log("Error:", err);

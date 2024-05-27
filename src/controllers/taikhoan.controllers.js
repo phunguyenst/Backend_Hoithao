@@ -94,3 +94,19 @@ exports.deleteTaiKhoan = function (req, res) {
     });
 };
 
+exports.changePasswordWithEmail = function (req, res) {
+    const { email, newPassword } = req.body;
+
+    TaiKhoan.changePasswordWithEmail(email, newPassword)
+        .then(result => {
+            res.status(result.status).json(result);
+        })
+        .catch(error => {
+            console.log("Error:", error);
+            res.status(500).json({
+                message: 'Có lỗi xảy ra khi thay đổi mật khẩu',
+                status: 500,
+                data: {},
+            });
+        });
+};

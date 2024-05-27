@@ -9,4 +9,7 @@ router.post('/create', taikhoanController.createTaiKhoan); // Create a new accou
 router.put('/update/:MaTaiKhoan', taikhoanController.updateTaiKhoan); // Update an account
 router.delete('/delete/:MaTaiKhoan', taikhoanController.deleteTaiKhoan); // Delete an account
 
+// Add new route for changing password
+router.post('/changePasswordWithEmail', taikhoanController.changePasswordWithEmail);
+
 module.exports = router;

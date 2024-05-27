@@ -139,4 +139,44 @@ TaiKhoan.findByUsername = function (SoDienThoai) {
         });
     });
 };
+TaiKhoan.changePasswordWithEmail = function (email, newPassword) {
+    return new Promise((resolve, reject) => {
+        var sql = "SELECT * FROM TaiKhoan WHERE email = ?";
+        var data = [email];
+
+        dbConn.query(sql, data, function (error, results, fields) {
+            if (error) {
+                console.log("Error:", error);
+                reject(error);
+            }
+
+            // Check if user exists
+            if (results && results.length > 0) {
+                // Perform password update for the user
+                var updateSql = "UPDATE TaiKhoan SET password = ? WHERE email = ?";
+                var updateData = [newPassword, email];
+
+                dbConn.query(updateSql, updateData, function (updateError, updateResults, updateFields) {
+                    if (updateError) {
+                        console.log("Update Error:", updateError);
+                        reject(updateError);
+                    } else {
+                        console.log('Password updated successfully.');
+                        resolve({
+                            message: 'Thay đổi mật khẩu thành công',
+                            status: 200,
+                            data: results[0],
+                        });
+                    }
+                });
+            } else {
+                resolve({
+                    message: 'Không tìm thấy người dùng với email đã cho',
+                    status: 404,
+                    data: {},
+                });
+            }
+        });
+    });
+};
 module.exports = TaiKhoan;

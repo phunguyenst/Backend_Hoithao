@@ -16,7 +16,8 @@ exports.getAllTaiKhoan = function (req, res) {
 
 
 exports.getOneTaiKhoan = function (req, res) {
-    TaiKhoan.getOne(req.params.MaTaiKhoan, function (err, taikhoanData) {
+    TaiKhoan.getOne(req.params.email, function (err, taikhoanData) {
+        console.log("emailtest",req.params.email);
         if (err) {
             console.log('Error in controller:', err);
             res.status(500).send('Internal Server Error');
@@ -38,7 +39,7 @@ exports.createTaiKhoan = function (req, res) {
     //     res.status(400).send({ success: false, error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
     // } else {
         // Kiểm tra số điện thoại và email đã tồn tại trong cơ sở dữ liệu chưa
-        TaiKhoan.findOne({ SoDienThoai: tk.SoDienThoai })
+        TaiKhoan.findOne({ email: tk.email })
             .then(existingUser => {
                 if (existingUser) {
                     // Số điện thoại đã tồn tại trong cơ sở dữ liệu

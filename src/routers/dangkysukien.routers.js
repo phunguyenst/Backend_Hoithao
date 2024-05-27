@@ -9,7 +9,7 @@ router.post('/registerEvent', dangKySuKienController.registerController);
 router.get('/findall', dangKySuKienController.getAllDangKySuKien);
 
 // Route để lấy một đăng ký sự kiện dựa trên mã đăng ký
-router.get('/getone/:MaDangKy', dangKySuKienController.getDangKySuKienById);
+router.get('/getone/:MaSuKien', dangKySuKienController.getDangKySuKienById);
 
 // Route để xóa một đăng ký sự kiện
 router.delete('/delete/:MaDangKy', dangKySuKienController.deleteDangKySuKien);

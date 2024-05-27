@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th4 19, 2024 lúc 04:15 AM
+-- Thời gian đã tạo: Th5 27, 2024 lúc 02:27 PM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -54,21 +54,21 @@ INSERT INTO `bantochuc` (`MaBTC`, `TenBTC`, `DiaChi`, `SoDienThoai`, `Email`, `M
 
 CREATE TABLE `dangky_sukien` (
   `MaDangKy` int NOT NULL,
-  `MaSuKien` int DEFAULT NULL,
-  `MaNguoiDung` int DEFAULT NULL,
-  `TenNguoiDung` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `NgayDangKy` datetime DEFAULT NULL,
-  `TrangThaiDangKy` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `MaSuKien` int NOT NULL,
+  `MaTaiKhoan` int NOT NULL,
+  `TenTaiKhoan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `NgayDangKy` date NOT NULL,
+  `TrangThaiDangKy` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `trangThai` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `dangky_sukien`
 --
 
-INSERT INTO `dangky_sukien` (`MaDangKy`, `MaSuKien`, `MaNguoiDung`, `TenNguoiDung`, `NgayDangKy`, `TrangThaiDangKy`, `trangThai`) VALUES
-(5, 3, 2, 'Trương Phú Quý', NULL, NULL, 1),
-(6, 3, 2, 'Trương Phú Quý', '2024-04-19 00:00:00', 'Đã đăng ký', 1);
+INSERT INTO `dangky_sukien` (`MaDangKy`, `MaSuKien`, `MaTaiKhoan`, `TenTaiKhoan`, `NgayDangKy`, `TrangThaiDangKy`, `trangThai`) VALUES
+(1, 3, 1, 'Trương Phú Quý', '2024-04-19', 'Đã đăng ký', 1),
+(2, 3, 1, 'Trương Phú Quý', '2024-04-19', 'Đã đăng ký', 1);
 
 -- --------------------------------------------------------
 
@@ -168,63 +168,6 @@ INSERT INTO `loaisukien` (`MaLoai`, `TenLoai`, `HinhThuc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nguoidung`
---
-
-CREATE TABLE `nguoidung` (
-  `MaNguoiDung` int NOT NULL,
-  `TenNguoiDung` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `DiaChi` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `SoDienThoai` int NOT NULL,
-  `email` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `trangThai` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nguoidung`
---
-
-INSERT INTO `nguoidung` (`MaNguoiDung`, `TenNguoiDung`, `DiaChi`, `SoDienThoai`, `email`, `password`, `trangThai`) VALUES
-(1, 'Nguyễn Thị Diệu Linh', 'Đà Nẵng', 987654222, 'dieuky@gmail.com', '1234', 1),
-(2, 'Trương Phú Quý', 'Tân Thới, Tiền Giang', 789665431, 'truongphuquy', '1212', 1),
-(3, 'Nguyễn Văn Phú', 'Vũng Tàu', 338630727, 'phusenpai@gmail.com', '1111', 1),
-(4, 'Nguyễn Quang Tú', 'Bình Thạnh, TP.HCM', 125789456, 'tuquang@gmail.com', '1212', 1),
-(5, 'Nguyễn Thị Kim Yến', 'Tiền Giang', 331236688, 'yenxd@gmail.com', '1234', 1),
-(6, 'Nguyễn Văn Quý', 'Gò vấp', 816977958, 'quy14@gmail.com', '1234', 1),
-(7, 'quý', 'gò vấp', 816977958, 'quynguyenpro1410@gmail.com', '1234', 1),
-(8, 'Linh tesst', 'Gò vấp', 816977958, 'quylinhtesst@gmail.com', '1234', 1),
-(9, 'quý', 'gò vấp', 816977952, 'linh123@gmail.com', '123', 1),
-(10, 'quý', 'gò vấp', 816977952, 'linh12d3@gmail.com', '123', 1);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nhanvien`
---
-
-CREATE TABLE `nhanvien` (
-  `MaNhanVien` int NOT NULL,
-  `TenNhanVien` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `DiaChi` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `SoDienThoai` int NOT NULL,
-  `Email` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `MatKhau` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `trangThai` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nhanvien`
---
-
-INSERT INTO `nhanvien` (`MaNhanVien`, `TenNhanVien`, `DiaChi`, `SoDienThoai`, `Email`, `MatKhau`, `trangThai`) VALUES
-(1, 'Nguyễn Trần Nhật Trường', 'Gò Vấp, TP.HCM', 335536783, 'truongtran@gmail.com', '1234', 1),
-(2, 'Trần Thị Bảo Anh', 'Củ Chi, TP.HCM', 857778560, 'anhne@gmail.com', '1234', 1),
-(3, 'Trương Đình Long', 'Bình Tân, TP.HCM', 366774530, 'longdinh@gmail.com', '1234', 1);
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `phieuqr`
 --
 
@@ -253,7 +196,7 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`MaRole`, `TenRole`, `GhiChu`) VALUES
 (1, 'Quản trị viên', 'Vai trò quản lý hệ thống'),
 (2, 'Nhân viên', ''),
-(3, 'Ban Tổ Chức', '');
+(3, 'Người Dùng', '');
 
 -- --------------------------------------------------------
 
@@ -283,11 +226,17 @@ CREATE TABLE `sukien` (
 --
 
 INSERT INTO `sukien` (`MaSuKien`, `TenSuKien`, `HinhThuc`, `DiaDiem`, `ThoiGianBatDau`, `ThoiGianKetThuc`, `SoNguoiThamDu`, `MoTa`, `HinhAnh`, `MaLich`, `MaNguoiDung`, `MaBTC`, `MaNhanVien`, `trangThai`) VALUES
+(1, 'Mihoyo', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp', '2024-05-27', '2024-05-27', 140, '', '', 1, 1, 1, 1, 1),
+(2, 'Honkai Star Rail', 'offline', 'Mihoyo', '2024-05-22', '2024-05-22', 30, 'Đi đến những các vì sao, tham gia tọa đàm của Hiền giả Himeko và Welt', '', 3, 3, 2, 2, 1),
 (3, 'Block Show', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-03-18', '2024-03-18', 50, 'Sự kiện block show giúp mọi người hiễu rõ về block chain, cũng như công nghệ block chain có trong những lĩnh vực nào', 'blockchain.png', 1, 1, 1, 1, 1),
 (4, 'Sự kiện KOL Affiliate', 'online', 'Zoom Meeting\r\nId: 973 999 2740\r\nPass hafiz', '2024-03-29', '2024-03-29', 100, 'Sự kiện gồm các buổi diễn thuyết, panel thảo luận, workshop, và các hoạt động mạng lưới để tạo ra cơ hội kết nối và hợp tác về KOL', 'KOL.jpg', 2, 2, 2, 2, 1),
 (5, 'New tech', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-04-12', '2024-04-12', 50, 'Sự kiển ra mắt quảng bá công nghệ thiết bị mới', 'samsung.jpg', 3, 3, 3, 2, 1),
 (6, 'AI Machine learning', 'online', 'Zoom Meeting\r\nID: 245 6548 991\r\nPassword: almachine', '2024-04-24', '2024-04-24', 70, 'Học hỏi về công nghệ AI áp dụng gì trong đời sống', 'machinelearing.jpg', 4, 2, 3, 1, 1),
-(7, 'Book tech', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp, Phường 4, TP.HCM', '2024-04-10', '2024-04-10', 30, 'Trao đổi với các chuyên gia trong lĩnh vực sách', 'book.jpg', 5, 5, 1, 1, 1);
+(7, 'Book tech', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp, Phường 4, TP.HCM', '2024-04-10', '2024-04-10', 30, 'Trao đổi với các chuyên gia trong lĩnh vực sách', 'book.jpg', 5, 5, 1, 1, 1),
+(8, 'Code master', 'offline', 'Tân Bình', '2024-05-28', '2024-05-28', 20, 'Học code React và NodeJS', '', 1, 5, 1, 1, 1),
+(9, 'Cellphones Samsung', 'offline', 'Tân Bình', '2024-05-22', '2024-05-23', 100, 'giới thiệu sản phẩm samsung mới', '', 3, 2, 1, 1, 1),
+(10, 'Honkai impact 3', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp', '2024-05-22', '2024-05-22', 30, 'Cosplay char, tìm hiểu văn hóa', '', 3, 3, 2, 1, 1),
+(11, 'Book tech', 'offline', 'Tân Bình', '2024-04-01', '2024-05-01', 30, 'Mượn sách về đọc', '', 1, 2, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -298,12 +247,23 @@ INSERT INTO `sukien` (`MaSuKien`, `TenSuKien`, `HinhThuc`, `DiaDiem`, `ThoiGianB
 CREATE TABLE `taikhoan` (
   `MaTaiKhoan` int UNSIGNED NOT NULL,
   `TenTaiKhoan` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `MatKhau` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `SoDienThoai` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `DiaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `password` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NguoiDung',
+  `SoDienThoai` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `DiaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `trangThai` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `taikhoan`
+--
+
+INSERT INTO `taikhoan` (`MaTaiKhoan`, `TenTaiKhoan`, `password`, `role`, `SoDienThoai`, `DiaChi`, `email`, `trangThai`) VALUES
+(1, 'admin.btc@gmail.com', '1234', 'QuanTriVien', '0373281921', 'Go Vap', 'admin.btc@gmail.com', 1),
+(7, 'si', '123', 'NguoiDung', NULL, NULL, 'si@gmail.com', 1),
+(8, 'Quân', 'newPassword123', 'NguoiDung', NULL, NULL, 'quan2s@gmail.com', 1),
+(9, 'Quys', '123', 'NguoiDung', NULL, NULL, 'quy@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +354,7 @@ ALTER TABLE `bantochuc`
 ALTER TABLE `dangky_sukien`
   ADD PRIMARY KEY (`MaDangKy`),
   ADD KEY `MaSuKien` (`MaSuKien`),
-  ADD KEY `MaNguoiDung` (`MaNguoiDung`);
+  ADD KEY `MaTaiKhoan` (`MaTaiKhoan`);
 
 --
 -- Chỉ mục cho bảng `hoithao`
@@ -420,18 +380,6 @@ ALTER TABLE `loaihoithao`
 --
 ALTER TABLE `loaisukien`
   ADD PRIMARY KEY (`MaLoai`);
-
---
--- Chỉ mục cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  ADD PRIMARY KEY (`MaNguoiDung`);
-
---
--- Chỉ mục cho bảng `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD PRIMARY KEY (`MaNhanVien`);
 
 --
 -- Chỉ mục cho bảng `phieuqr`
@@ -496,7 +444,7 @@ ALTER TABLE `bantochuc`
 -- AUTO_INCREMENT cho bảng `dangky_sukien`
 --
 ALTER TABLE `dangky_sukien`
-  MODIFY `MaDangKy` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `MaDangKy` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `hoithao`
@@ -523,18 +471,6 @@ ALTER TABLE `loaisukien`
   MODIFY `MaLoai` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `nguoidung`
---
-ALTER TABLE `nguoidung`
-  MODIFY `MaNguoiDung` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT cho bảng `nhanvien`
---
-ALTER TABLE `nhanvien`
-  MODIFY `MaNhanVien` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT cho bảng `phieuqr`
 --
 ALTER TABLE `phieuqr`
@@ -544,19 +480,19 @@ ALTER TABLE `phieuqr`
 -- AUTO_INCREMENT cho bảng `role`
 --
 ALTER TABLE `role`
-  MODIFY `MaRole` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `MaRole` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `sukien`
 --
 ALTER TABLE `sukien`
-  MODIFY `MaSuKien` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `MaSuKien` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `MaTaiKhoan` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `MaTaiKhoan` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `tailieu`
@@ -575,17 +511,6 @@ ALTER TABLE `thongtinve`
 --
 ALTER TABLE `ve`
   MODIFY `MaVe` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `dangky_sukien`
---
-ALTER TABLE `dangky_sukien`
-  ADD CONSTRAINT `dangky_sukien_ibfk_1` FOREIGN KEY (`MaSuKien`) REFERENCES `sukien` (`MaSuKien`),
-  ADD CONSTRAINT `dangky_sukien_ibfk_2` FOREIGN KEY (`MaNguoiDung`) REFERENCES `nguoidung` (`MaNguoiDung`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

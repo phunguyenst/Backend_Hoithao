@@ -14,17 +14,17 @@ exports.getAllSuKien = function (req, res) {
     });
 };
 
-exports.getOneSuKien = function (req, res) {
-    SuKien.getOne(req.params.MaSuKien, function (err, sukienData) {
-        if (err) {
-            console.log('Error in controller:', err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            console.log('Controller:', sukienData);
-            res.send(sukienData);
-        }
-    });
+exports.getOneSuKien = async function (req, res) {
+    try {
+        const sukienData = await SuKien.getOne(req.params.MaSuKien);
+        console.log('Controller:', sukienData);
+        res.send(sukienData);
+    } catch (err) {
+        console.log('Error in controller:', err);
+        res.status(500).send('Internal Server Error');
+    }
 };
+
 exports.createSuKien = function(req, res) {
     const sk = new SuKien(req.body);
     

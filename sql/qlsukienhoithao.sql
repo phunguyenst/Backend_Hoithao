@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th5 27, 2024 lúc 02:27 PM
+-- Thời gian đã tạo: Th5 28, 2024 lúc 03:08 PM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -55,20 +55,15 @@ INSERT INTO `bantochuc` (`MaBTC`, `TenBTC`, `DiaChi`, `SoDienThoai`, `Email`, `M
 CREATE TABLE `dangky_sukien` (
   `MaDangKy` int NOT NULL,
   `MaSuKien` int NOT NULL,
-  `MaTaiKhoan` int NOT NULL,
-  `TenTaiKhoan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `TenSuKien` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `HinhThuc` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `DiaDiem` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `SoNguoiThamDu` int NOT NULL,
+  `MoTa` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `NgayDangKy` date NOT NULL,
   `TrangThaiDangKy` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `trangThai` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
---
--- Đang đổ dữ liệu cho bảng `dangky_sukien`
---
-
-INSERT INTO `dangky_sukien` (`MaDangKy`, `MaSuKien`, `MaTaiKhoan`, `TenTaiKhoan`, `NgayDangKy`, `TrangThaiDangKy`, `trangThai`) VALUES
-(1, 3, 1, 'Trương Phú Quý', '2024-04-19', 'Đã đăng ký', 1),
-(2, 3, 1, 'Trương Phú Quý', '2024-04-19', 'Đã đăng ký', 1);
 
 -- --------------------------------------------------------
 
@@ -226,17 +221,26 @@ CREATE TABLE `sukien` (
 --
 
 INSERT INTO `sukien` (`MaSuKien`, `TenSuKien`, `HinhThuc`, `DiaDiem`, `ThoiGianBatDau`, `ThoiGianKetThuc`, `SoNguoiThamDu`, `MoTa`, `HinhAnh`, `MaLich`, `MaNguoiDung`, `MaBTC`, `MaNhanVien`, `trangThai`) VALUES
-(1, 'Mihoyo', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp', '2024-05-27', '2024-05-27', 140, '', '', 1, 1, 1, 1, 1),
-(2, 'Honkai Star Rail', 'offline', 'Mihoyo', '2024-05-22', '2024-05-22', 30, 'Đi đến những các vì sao, tham gia tọa đàm của Hiền giả Himeko và Welt', '', 3, 3, 2, 2, 1),
-(3, 'Block Show', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-03-18', '2024-03-18', 50, 'Sự kiện block show giúp mọi người hiễu rõ về block chain, cũng như công nghệ block chain có trong những lĩnh vực nào', 'blockchain.png', 1, 1, 1, 1, 1),
-(4, 'Sự kiện KOL Affiliate', 'online', 'Zoom Meeting\r\nId: 973 999 2740\r\nPass hafiz', '2024-03-29', '2024-03-29', 100, 'Sự kiện gồm các buổi diễn thuyết, panel thảo luận, workshop, và các hoạt động mạng lưới để tạo ra cơ hội kết nối và hợp tác về KOL', 'KOL.jpg', 2, 2, 2, 2, 1),
-(5, 'New tech', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-04-12', '2024-04-12', 50, 'Sự kiển ra mắt quảng bá công nghệ thiết bị mới', 'samsung.jpg', 3, 3, 3, 2, 1),
-(6, 'AI Machine learning', 'online', 'Zoom Meeting\r\nID: 245 6548 991\r\nPassword: almachine', '2024-04-24', '2024-04-24', 70, 'Học hỏi về công nghệ AI áp dụng gì trong đời sống', 'machinelearing.jpg', 4, 2, 3, 1, 1),
-(7, 'Book tech', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp, Phường 4, TP.HCM', '2024-04-10', '2024-04-10', 30, 'Trao đổi với các chuyên gia trong lĩnh vực sách', 'book.jpg', 5, 5, 1, 1, 1),
-(8, 'Code master', 'offline', 'Tân Bình', '2024-05-28', '2024-05-28', 20, 'Học code React và NodeJS', '', 1, 5, 1, 1, 1),
-(9, 'Cellphones Samsung', 'offline', 'Tân Bình', '2024-05-22', '2024-05-23', 100, 'giới thiệu sản phẩm samsung mới', '', 3, 2, 1, 1, 1),
-(10, 'Honkai impact 3', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp', '2024-05-22', '2024-05-22', 30, 'Cosplay char, tìm hiểu văn hóa', '', 3, 3, 2, 1, 1),
-(11, 'Book tech', 'offline', 'Tân Bình', '2024-04-01', '2024-05-01', 30, 'Mượn sách về đọc', '', 1, 2, 1, 2, 1);
+(1, 'Mihoyo', 'offline', 'Tân Bình', '2024-06-12', '2024-06-12', 50, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 1, 2, 3, 1),
+(2, 'Honkai Star Rail', 'online', 'Link tham gia: https://meet.google.com/uek-foqg-xnv', '2024-06-19', '2024-06-19', 70, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 2, 1, 2, 1, 1),
+(3, 'Block Show', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-03-18', '2024-03-18', 50, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', 'blockchain.png', 1, 1, 1, 1, 1),
+(4, 'Sự kiện KOL Affiliate', 'online', 'Zoom Meeting\r\nId: 973 999 2740\r\nPass hafiz', '2024-03-29', '2024-03-29', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', 'KOL.jpg', 2, 2, 2, 2, 1),
+(5, 'New tech', 'offline', '12, Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP.HCM', '2024-04-12', '2024-04-12', 50, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', 'samsung.jpg', 3, 3, 3, 2, 1),
+(6, 'AI Machine learning', 'online', 'Zoom Meeting\r\nID: 245 6548 991\r\nPassword: almachine', '2024-04-24', '2024-04-24', 70, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', 'machinelearing.jpg', 4, 2, 3, 1, 1),
+(7, 'Book tech', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp, Phường 4, TP.HCM', '2024-04-10', '2024-04-10', 30, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', 'book.jpg', 5, 5, 1, 1, 1),
+(8, 'Code master', 'online', 'https://meet.google.com/uek-foqg-xnv', '2024-06-18', '2024-06-18', 30, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 2, 1, 1, 1),
+(9, 'Sự kiện KOL Affiliate', 'online', 'Zoom: 089 164789 203\r\nPass: 5W632', '2024-06-19', '2024-06-19', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 2, 1, 1, 1),
+(10, 'Honkai star rail', 'offline', 'Quận 1, TP.HCM', '2024-06-27', '2024-06-27', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 2, 1, 1, 1),
+(11, 'Honkai Star Rail', 'offline', 'Thủ Đức', '2024-05-29', '2024-05-29', 30, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 4, 3, 2, 2, 1),
+(12, 'Genshin impact', 'online', 'https://meet.google.com/uek-foqg-xnv', '2024-06-05', '2024-06-05', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 3, 4, 2, 1, 1),
+(13, 'Honkai star rail', 'offline', 'Vạn Hạnh Mall', '2024-05-29', '2024-05-30', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 1, 1, 1, 1),
+(14, 'Wundering waves', 'online', 'https://meet.google.com/uek-foqg-xnv', '2024-06-20', '2024-06-20', 50, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 2, 1, 1, 2, 1),
+(15, 'Honkai 2', 'online', 'aaa', '2024-05-29', '2024-05-29', 32, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 3, 3, 2, 1, 1),
+(16, 'Honkai 2', 'online', 'aaa', '2024-05-29', '2024-05-29', 32, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 3, 3, 2, 1, 1),
+(17, 'Shopee KOL', 'offline', '12, Nguyễn Văn Bảo, Gò Vấp, TP.HCM', '2024-06-26', '2024-06-26', 70, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 2, 3, 4, 1, 1),
+(18, 'Mihoyo', 'Offline', 'Mihoyo center, quận 1, TP.HCM', '2024-05-30', '2024-05-30', 40, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 1, 1, 3, 1),
+(19, 'Himeko and Welt', '', 'Quận 1, TP.HCM', '2024-05-30', '2024-05-30', 50, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 1, 1, 2, 1),
+(20, 'Metaverse', 'online', 'https://meet.google.com/uek-foqg-xnv', '2024-05-31', '2024-05-31', 100, 'https://iuhedu-my.sharepoint.com/:w:/g/personal/20048861_quy_student_iuh_edu_vn/EanrB-HMXQ9Ekua__bmQRmwBg0OPjJ7Rw63UyQWX4uEQWw?e=7jJvU4', '', 1, 1, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -260,10 +264,11 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`MaTaiKhoan`, `TenTaiKhoan`, `password`, `role`, `SoDienThoai`, `DiaChi`, `email`, `trangThai`) VALUES
-(1, 'admin.btc@gmail.com', '1234', 'QuanTriVien', '0373281921', 'Go Vap', 'admin.btc@gmail.com', 1),
-(7, 'si', '123', 'NguoiDung', NULL, NULL, 'si@gmail.com', 1),
-(8, 'Quân', 'newPassword123', 'NguoiDung', NULL, NULL, 'quan2s@gmail.com', 1),
-(9, 'Quys', '123', 'NguoiDung', NULL, NULL, 'quy@gmail.com', 1);
+(1, 'anhquan', 'admin', 'QuanTriVien', '0915874414', '12, Đường Nguyễn Văn Bảo, Quận Gò Vấp, Thành phố HCM', 'admin.btc@gmail.com', 1),
+(2, 'DieuKy', '', 'NguoiDung', '098765422', 'Quảng Nam', 'dieuky@gmail.com', 1),
+(4, 'Quy Van', '', 'NguoiDung', '0816977958', 'Vũng Tàu', 'quynguyenpro1410@gmail.com', 1),
+(7, 'anhquan2', '1234', 'NguoiDung', '0915874414', '12, Đường Nguyễn Văn Bảo, Quận Gò Vấp, Thành phố HCM', 'simming@gmail.com', 1),
+(8, 'Quân', '123', 'NguoiDung', '9367317', 'GO VAP', 'quan2s@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -353,8 +358,7 @@ ALTER TABLE `bantochuc`
 --
 ALTER TABLE `dangky_sukien`
   ADD PRIMARY KEY (`MaDangKy`),
-  ADD KEY `MaSuKien` (`MaSuKien`),
-  ADD KEY `MaTaiKhoan` (`MaTaiKhoan`);
+  ADD KEY `MaSuKien` (`MaSuKien`);
 
 --
 -- Chỉ mục cho bảng `hoithao`
@@ -486,7 +490,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT cho bảng `sukien`
 --
 ALTER TABLE `sukien`
-  MODIFY `MaSuKien` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `MaSuKien` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `taikhoan`

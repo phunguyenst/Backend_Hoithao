@@ -29,16 +29,17 @@ SuKien.findall = function (result) {
         }
     });
 };
-
-SuKien.getOne = function (MaSuKien, result) {
-    dbConn.query("SELECT * FROM sukien WHERE MaSuKien = ?", [MaSuKien], function (err, res) {
-        if (err) {
-            console.log("Error:", err);
-            result(err, null);
-        } else {
-            console.log(res);
-            result(null, res);
-        }
+SuKien.getOne = function (MaSuKien) {
+    return new Promise((resolve, reject) => {
+        dbConn.query("SELECT * FROM sukien WHERE MaSuKien = ?", [MaSuKien], function (err, res) {
+            if (err) {
+                console.log("Error:", err);
+                reject(err);
+            } else {
+                console.log(res);
+                resolve(res);
+            }
+        });
     });
 };
 SuKien.create = function(sukien) {

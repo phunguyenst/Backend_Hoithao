@@ -1,5 +1,6 @@
 'use strict';
 const dbConn = require('../../config/db.config');
+const sukien= require('./sukien.model');
 
 console.log(dbConn.pool);
 
@@ -12,57 +13,58 @@ var DangKySuKien = function DangKySuKien(dangkysukien) {
     this.TrangThaiDangKy = dangkysukien.TrangThaiDangKy || 'Chưa xác định'; // Mặc định là 'Chưa xác định' nếu không có dữ liệu được truyền vào
     this.trangThai = dangkysukien.trangThai;
 }
-DangKySuKien.registerEvent = function(MaSuKien) {
+
+
+DangKySuKien.registerEvent = async function(MaSuKien) {
     // Start a transaction
-    dbConn.beginTransaction(function(err) {
+    dbConn.beginTransaction(async function(err) {
         if (err) { throw err; }
-        
-        dbConn.query("UPDATE sukien SET trangThai = 0 WHERE MaSuKien = ?", [MaSuKien], function(err, res) {
-            if (err) {
-                return dbConn.rollback(function() {
-                    throw err;
-                });
-            }
+
+        try {
+            // Get the event details
+            const getsukien = await sukien.getOne(MaSuKien);
+
+            console.log("getsukien", getsukien);
+
+            // Update the event status
+            await dbConn.query("UPDATE sukien SET trangThai = 0 WHERE MaSuKien = ?", [MaSuKien]);
 
             // Delete the event from the sukien table
-            dbConn.query("DELETE FROM sukien WHERE MaSuKien = ?", [MaSuKien], function(err, res) {
+            await dbConn.query("DELETE FROM sukien WHERE MaSuKien = ?", [MaSuKien]);
+
+            // Insert the event into the DangKySuKien table
+            const newEvent = {
+                MaSuKien: MaSuKien,
+                TenSuKien: getsukien[0].TenSuKien,
+                HinhThuc: getsukien[0].HinhThuc,
+                DiaDiem: getsukien[0].DiaDiem,
+                SoNguoiThamDu: getsukien[0].SoNguoiThamDu,
+                MoTa: getsukien[0].MoTa,
+                NgayDangKy: new Date(),
+                TrangThaiDangKy: 'Đã đăng ký',
+                trangThai: 0
+            };
+
+            console.log("TensuKien", getsukien[0].TenSuKien);
+
+            await dbConn.query("INSERT INTO dangky_sukien SET ?", newEvent);
+
+            dbConn.commit(function(err) {
                 if (err) {
                     return dbConn.rollback(function() {
                         throw err;
                     });
                 }
-
-                // Insert the event into the DangKySuKien table
-                const newEvent = {
-                    MaSuKien: MaSuKien,
-                    MaTaiKhoan: 1,
-                    TenTaiKhoan: "Phu",
-                    NgayDangKy: new Date(),
-                    TrangThaiDangKy: 'Đã đăng ký',
-                    trangThai: 0
-                };
-                dbConn.query("INSERT INTO dangky_sukien SET ?", newEvent, function(err, res) {
-                    if (err) {
-                        return dbConn.rollback(function() {
-                            throw err;
-                        });
-                    }
-
-                    dbConn.commit(function(err) {
-                        if (err) {
-                            return dbConn.rollback(function() {
-                                throw err;
-                            });
-                        }
-                        console.log('Event registered successfully!');
-                   
-                    });
-                });
+                console.log('Event registered successfully!');
             });
-        });
+        } catch (err) {
+            return dbConn.rollback(function() {
+                throw err;
+            });
+        }
     });
 };
-DangKySuKien.findAll = function(result) {
+DangKySuKien.findAll = function(result) {        
     dbConn.query("SELECT * FROM dangky_sukien", function(err, res) {
         if (err) {
             console.log("Error:", err);

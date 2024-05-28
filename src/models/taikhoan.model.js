@@ -100,8 +100,8 @@ TaiKhoan.create = function (taikhoan, result) {
 
 
 TaiKhoan.update = function (MaTaiKhoan, taikhoan, result) { // Ensure result is a function
-    dbConn.query("UPDATE taikhoan SET TenTaiKhoan=?, password=?, SoDienThoai=?, Email=?, DiaChi=? WHERE MaTaiKhoan = ?", 
-    [taikhoan.TenTaiKhoan, taikhoan.password, taikhoan.SoDienThoai, taikhoan.Email, taikhoan.DiaChi, MaTaiKhoan], function (err, res) {
+    dbConn.query("UPDATE taikhoan SET TenTaiKhoan=?, SoDienThoai=?, DiaChi=? WHERE MaTaiKhoan = ?", 
+    [taikhoan.TenTaiKhoan, taikhoan.SoDienThoai, taikhoan.DiaChi, MaTaiKhoan], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(err, null);
